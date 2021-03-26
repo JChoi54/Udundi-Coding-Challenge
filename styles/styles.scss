@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+$primary: #611818;
+
+@mixin responsive($breakpoint){
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 600px){ @content };
+    }
+
+    @if $breakpoint == tablet-portrait {
+        @media only screen and (max-width: 900px){ @content };
+    }
+
+    @if $breakpoint == tablet-landscape {
+        @media only screen and (max-width: 1400px){ @content };
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main{
+    background: url('/images/background-image.png');
+    background-size: cover;
+    height: 100vh;
+
+    .main-left{
+        background: $primary;
+        height: 100vh;
+        display: flex;
+
+        @include responsive(phone){
+            background: transparent;
+        }
+
+        .explore{
+            align-self: center;
+            margin-top: 25%;
+            margin-left: 25%;
+            position: relative;
+
+            @include responsive(phone){
+                margin-left: 10%;
+            }
+
+            .main-header{
+                color: white;
+                font-size: 14rem;
+                font-family: 'Playfair Display', serif;
+                user-select: none;
+                transition: 0.3s ease-in-out;
+                animation: slideIn 0.4s ease-out;
+
+                @include responsive(tablet-landscape){
+                    font-size: 12rem;
+                }
+                @include responsive(tablet-portrait){
+                    font-size: 8rem;
+                }
+                @include responsive(phone){
+                    font-size: 5rem;
+                }
+            }
+
+            .details-container{
+                display: flex;
+                align-items: center;
+                margin-left: 40px;
+                width: 100%;
+                opacity: 0;
+                animation: slideIn 0.4s ease-out forwards;
+                animation-delay: .3s;
+
+                @include responsive(phone){
+                    margin-left: 0;
+                }
+
+                .more-button{
+                    background: white;
+                    height: 30px;
+                    width: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50px;
+                    margin-right: 15px;
+                    cursor: pointer;
+                    transition: transform .3s ease-in-out;
+
+
+                    // Adds the button shrink keyframe animation when class is added
+                    &.button-size{
+                        animation: buttonSize 0.3s;
+                    }
+
+                    .fa-plus{
+                        color: $primary;
+                    }
+                }
+
+                h2{
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 0;
+                    cursor: pointer;
+                }
+            }
+
+            .info-card{
+                position: absolute;
+                bottom: 0;
+                background: white;
+                width: 30px;
+                height: 30px;
+                border-radius: 50px;
+                margin-left: 40px;
+                visibility: hidden;
+                transition: 0.2s ease-in;
+                overflow: scroll;
+
+                @include responsive(phone){
+                    margin-left: 0;
+                }
+
+
+                // Shows and animates the more details box when class is added
+                &.expand{
+                    width: 100%;
+                    max-width: 600px;
+                    height: 75vh;
+                    max-height: 75vh;
+                    border-radius: 0;
+                    bottom: -90px;
+                    visibility: visible;
+                    transition: 0.25s ease-in-out;
+                    transition-delay: 0.1s;
+                    padding: 50px 60px;
+                    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+                    @include responsive(phone){
+                        height: 60vh;
+                    }
+                }
+
+                .info-content{
+                    transform: translateX(-30px);
+                    opacity: 0;
+                    display: flex;
+                    flex-direction: column;
+                    transition: 0.25s ease-in;
+                    transition-delay: 0s;
+
+                    // Animates the box content sliding in when class added
+                    &.info-slide{
+                        opacity: 1;
+                        transform: translateX(0px);
+                        transition-delay: 0.35s;
+                    }
+
+                    .exit-button{
+                        align-self: flex-end;
+                        cursor: pointer;
+
+                        .fa-times{
+                            color: $primary;
+                        }
+                    }
+
+                    .card-title{
+                        font-family: 'Playfair Display', serif;
+                        font-size: 60px;
+                        color: $primary;
+                        margin-bottom: 0;
+
+                        @include responsive(phone){
+                            font-size: 40px;
+                        }
+                    }
+
+                    .divider{
+                        height: 2px;
+                        background: linear-gradient(90deg,$primary,rgba(97, 24, 24, 0));
+                        width: 55%;
+                        margin: 15px 0;
+
+                        @include responsive(phone){
+                            width: 85%;
+                        }
+                    }
+
+                    p{
+                        font-size: 14px;
+                        font-family: Arial, Helvetica, sans-serif;
+                        color: #505050;
+                        line-height: 30px;
+                    }
+
+                    .read-more{
+                        width: 55%;
+                        background: linear-gradient(90deg,$primary,#A36754);
+                        outline: none;
+                        border: none;
+                        text-align: center;
+                        padding: 15px 0;
+                        margin-top: 10px;
+
+                        @include responsive(phone){
+                            padding: 5px;
+                            width: 70%;
+
+                        }
+
+                        a{
+                            text-decoration: none;
+                            text-transform: uppercase;
+                            color: white;
+
+                            @include responsive(phone){
+                                font-size: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .main-right{
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        @include responsive(phone){
+            position: absolute;
+            bottom: 0;
+            justify-content: initial;
+        }
+
+        .socials{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+
+            @include responsive(phone){
+                flex-direction: initial;
+                margin-left: 10%;
+                margin-bottom: 20px;
+            }
+
+            a{
+                margin: 5px;
+
+                img{
+                    height: 50px;
+                }
+            }
+        }
+    }
+}
+
+//Loading sliding animation 
+
+@keyframes slideIn{
+    0% {
+        opacity: 0;
+        transform: translateX(-150px);
+    }   
+    100%{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+//Button shrink animation on click
+
+@keyframes buttonSize{
+    50% {
+        transform: scale(.8);
+    }   
+    100%{
+        transform: scale(1);
+    }
+}
+
